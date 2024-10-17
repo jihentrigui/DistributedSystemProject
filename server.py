@@ -40,11 +40,11 @@ def sort_endpoint():
     data = [random.randint(0, 1000000) for _ in range(n)]
     
     # Diviser les données en 3 parties
-    split_data_list = split_data(data, 3)
+    split_data_list = split_data(data, 2)
 
     # Adresses des machines distantes
-    machine1_url = "http://192.168.1.33:5000/sort"
-    machine2_url = "http://192.168.1.35:5000/sort"
+    machine1_url = "http://10.200.40.93:5001/sort"
+    #machine2_url = "http://10.200.40.93:5002/sort"
 
     start = time.time()
 
@@ -53,10 +53,10 @@ def sort_endpoint():
 
     # Envoyer les deux autres parties aux machines distantes
     sorted_part2 = send_to_machine(split_data_list[1], machine1_url)
-    sorted_part3 = send_to_machine(split_data_list[2], machine2_url)
+    #sorted_part3 = send_to_machine(split_data_list[2], machine2_url)
 
     # Fusionner les résultats triés
-    final_sorted_data = merge(sorted_part1, sorted_part2, sorted_part3)
+    final_sorted_data = merge(sorted_part1, sorted_part2)#, sorted_part3)
     
 
     duration = time.time() - start
@@ -68,4 +68,4 @@ def sort_endpoint():
     })
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000)
+    app.run(host='10.200.40.93', port=5000)
